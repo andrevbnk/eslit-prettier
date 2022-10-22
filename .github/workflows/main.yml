@@ -1,8 +1,8 @@
 name: Deploy
 env: 
     EB_PACKAGE_S3_BUCKET_NAME : "elasticbeanstalk-eu-north-1-018113552303"
-    EB_APPLICATION_NAME: "BackNodeJs"
-    EB_ENVIROMENT_NAME: "BackNodeJs-env"
+    EB_APPLICATION_NAME: "anutka"
+    EB_ENVIROMENT_NAME: "Anutka-env"
     DEPLOY_PACKAGE_NAME: "node_app_${{ github.sha }}.zip"
     AWS_REGION_NAME: "eu-north-1"
 
@@ -23,7 +23,7 @@ jobs:
 
         -   name: Configure my cred AWS
             uses: aws-action/configure-aws-credentials@v1
-            with: 
+            with:
                 aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                 aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                 aws-region: ${{ env.AWS_REGION_NAME }}
