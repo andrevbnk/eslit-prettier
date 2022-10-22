@@ -1,29 +1,22 @@
-name: Deploy Lambda
+name: Deploy
+env: 
+    EB_PACKAGE_S3_BUCKET_NAME : "a"
+    EB_APPLICATION_NAME: "BackNodeJs"
+    EB_ENVIROMENT_NAME: "BackNodeJs-env"
+    DEPLOY_PACKAGE_NAME: "node_app_${{ github.sha }}.zip"
+    AWS_REGION_NAME: "eu-north-1"
 
-on:
-  push:
-    branches:
-      - main
+'on': 
+    push: 
+        branches:
+            -master
 
 jobs:
-  deploy:
-    name: deploy
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-    steps:
-
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: serverless deploy
-      uses: serverless/github-action@master
-      with:
-        args: deploy
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    my_ci_part:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Git clone our repo
+            uses: actions/checkout@v2
+        
+        - name: Create Zip deploy package
+            run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git
