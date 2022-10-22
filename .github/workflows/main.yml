@@ -2,7 +2,7 @@ name: Deploy
 env: 
     EB_PACKAGE_S3_BUCKET_NAME : "elasticbeanstalk-eu-north-1-018113552303"
     EB_APPLICATION_NAME: "anutka"
-    EB_ENVIROMENT_NAME: "Anutka-env"
+    EB_ENVIRONMENT_NAME: "Anutka-env"
     DEPLOY_PACKAGE_NAME: "node_app_${{ github.sha }}.zip"
     AWS_REGION_NAME: "eu-north-1"
 
