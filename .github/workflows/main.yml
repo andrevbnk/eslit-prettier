@@ -1,10 +1,10 @@
 name: Deploy
 env: 
-    EB_PACKAGE_S3_BUCKET_NAME : "elasticbeanstalk-eu-north-1-018113552303"
+    EB_PACKAGE_S3_BUCKET_NAME : "elasticbeanstalk-us-east-2-018113552303"
     EB_APPLICATION_NAME: "anutka"
     EB_ENVIRONMENT_NAME: "Anutka-env"
     DEPLOY_PACKAGE_NAME: "node_app_${{ github.sha }}.zip"
-    AWS_REGION_NAME: "eu-north-1"
+    AWS_REGION_NAME: "us-east-2"
 
 'on': 
     push: 
@@ -18,18 +18,18 @@ jobs:
         -   name: Git clone our repo
             uses: actions/checkout@v2
             
+        -   name: Configure my AWS Credentials
+            uses: aws-actions/configure-aws-credentials@v1
+            with:
+                aws-access-key-id    :  ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region           :  ${{ env.AWS_REGION_NAME }}
+
         -   name: Install EB
             run: pip install awsebcli --upgrade --user
         
         -   name: EB init
             run: eb init
-            with:
-                aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                application_name: node-express-env
-                environment_name: eslit-prettier
-                version_label: 12345
-                region: us-east-2
 
         -   name: Create Zip deploy package
             run: eb deploy
