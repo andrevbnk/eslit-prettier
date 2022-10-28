@@ -18,5 +18,8 @@ jobs:
         -   name: Git clone our repo
             uses: actions/checkout@v2
             
+        -   name: Install EB
+            run: pip install awsebcli --upgrade --user
+            
         -   name: Create Zip deploy package
             run: eb deploy
