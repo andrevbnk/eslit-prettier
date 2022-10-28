@@ -3,8 +3,10 @@ env:
     EB_PACKAGE_S3_BUCKET_NAME : "elasticbeanstalk-us-east-2-018113552303"
     EB_APPLICATION_NAME: "eslit-prettier"
     EB_ENVIRONMENT_NAME: "node-express-env"
+    EB_PLATFORM_NAME: "node.js"
     DEPLOY_PACKAGE_NAME: "node_app_${{ github.sha }}.zip"
     AWS_REGION_NAME: "us-east-2"
+    EB_: "us-east-2"
 
 'on': 
     push: 
@@ -29,7 +31,7 @@ jobs:
             run: pip install awsebcli --upgrade --user
         
         -   name: EB init
-            run: eb init ${{ env.EB_APPLICATION_NAME }} --region ${{ env.AWS_REGION_NAME }} --platform ${{ env.EB_APPLICATION_NAME }}
+            run: eb init ${{ env.EB_APPLICATION_NAME }} --region ${{ env.AWS_REGION_NAME }} --platform ${{ env.EB_PLATFORM_NAME }}
 
         -   name: Create Zip deploy package
             run: eb deploy
