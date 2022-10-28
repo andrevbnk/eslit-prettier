@@ -29,7 +29,7 @@ jobs:
             run: pip install awsebcli --upgrade --user
         
         -   name: EB init
-            run: eb init
+            run: eb init --region ${{ env.AWS_REGION_NAME }}
 
         -   name: Create Zip deploy package
             run: eb deploy
